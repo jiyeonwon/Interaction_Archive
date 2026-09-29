@@ -6,25 +6,9 @@ const backButton = document.querySelector(".detail-back");
 
 const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname);
 function prepareProjectFrame() {
-  const frameWindow = projectFrame.contentWindow;
   const frameDocument = projectFrame.contentDocument;
 
-  if (!frameWindow || !frameDocument) return;
-
-  if (!frameDocument.querySelector(".archive-project-header-mask")) {
-    const headerMask = frameDocument.createElement("div");
-    headerMask.className = "archive-project-header-mask";
-    headerMask.setAttribute("aria-hidden", "true");
-    frameDocument.body.append(headerMask);
-  }
-
-  [0, 50, 150, 300, 600].forEach((delay) => {
-    window.setTimeout(() => {
-      if (typeof frameWindow.text === "function") {
-        frameWindow.text = () => {};
-      }
-    }, delay);
-  });
+  if (!frameDocument) return;
 
   if (frameDocument.querySelector("#archive-embed-reset")) return;
 
@@ -46,26 +30,20 @@ function prepareProjectFrame() {
       background: rgb(242, 242, 242) !important;
     }
 
+    body, main {
+      display: block !important;
+    }
+
     canvas {
       display: block !important;
       width: 100% !important;
-      height: 100% !important;
+      height: auto !important;
+      aspect-ratio: 900 / 700 !important;
       margin: 0 !important;
       padding: 0 !important;
       background: rgb(242, 242, 242) !important;
-    }
-
-    .archive-project-header-mask {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      width: 48%;
-      height: 14%;
-      border: 0;
-      outline: 0;
-      background: rgb(242, 242, 242);
-      pointer-events: none;
+      transform: translateY(-12.857143%);
+      transform-origin: top left;
     }
   `;
   frameDocument.head.append(frameStyle);

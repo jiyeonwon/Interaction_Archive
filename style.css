@@ -198,7 +198,7 @@ body {
   justify-self: center;
   display: block;
   width: min(900px, 100%);
-  aspect-ratio: 900 / 700;
+  aspect-ratio: 900 / 610;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -214,9 +214,9 @@ body {
   display: none;
 }
 
-@media (max-height: 732px) and (min-width: 701px) {
+@media (max-height: 642px) and (min-width: 701px) {
   .project-frame {
-    width: min(100%, calc(128.571vh - 41.143px));
+    width: min(100%, calc(147.541vh - 47.213px));
   }
 }
 

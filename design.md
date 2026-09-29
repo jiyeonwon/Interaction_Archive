@@ -79,8 +79,10 @@
 - 콘텐츠 영역은 divider 바로 오른쪽에서 시작하며 좌측 컬럼이나 divider를 침범하지 않는다.
 - 클릭 전에는 콘텐츠 영역을 흰색 빈 화면으로 유지하고 iframe은 `hidden` 상태로 둔다.
 - 프로젝트를 클릭하면 현재 페이지와 좌측 컬럼을 유지한 채 오른쪽 콘텐츠 영역 안에서 iframe을 표시한다.
-- Counterweight는 원본 `Dynamic Balance`의 `900 × 700` 비율을 유지한다.
-- iframe은 최대 `900px` 폭으로 중앙 배치하고, 낮은 데스크톱 화면에서는 가용 높이에 맞춰 같은 비율로 축소한다.
+- Counterweight의 원본 캔버스는 `900 × 700` 비율을 유지한다. 삭제한 상단 정보 영역 `90px`은 별도 mask나 여백으로 남기지 않고 표시 viewport에서 제외한다.
+- 실제 프로젝트 표시 viewport는 `900 × 610`이며, 원본 캔버스를 비율 그대로 위로 `90px` 이동해 시소, 삼각형, 원, 사각형, 바닥이 모두 보이는 작업 영역만 렌더링한다.
+- iframe은 최대 `900px` 폭으로 중앙 배치하고, 가용 너비와 높이 중 더 작은 값에 맞춰 비율을 유지한 채 축소한다. canvas에는 비균등 width/height 확대, crop, 프로젝트별 임의 scale을 적용하지 않는다.
+- iframe, canvas, wrapper는 `border: 0`, `outline: 0`, `box-shadow: none`을 사용하며 동일한 `rgb(242, 242, 242)` 배경으로 연결해 외곽 seam을 만들지 않는다.
 - 로컬에서는 `../소과제 Dynamic Balance/index.html`을 직접 사용한다.
 - 배포에서는 `counterweight.html` 실행 껍데기에서 기존 `Archive_Website` 저장소의 커밋 고정 `sketch.js`를 CDN으로 직접 불러온다. 인터랙션 로직 파일은 `Interaction_Archive` 안에 복제하지 않는다.
 - 프로젝트가 선택되면 버튼에 `is-active`와 `aria-expanded="true"`를 적용한다.
