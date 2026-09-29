@@ -1,0 +1,145 @@
+:root {
+  --archive-reference-width: 1920;
+  --archive-reference-height: 1080;
+  --archive-panel-width: min(380px, 19.791667vw);
+  --archive-title-size: clamp(38px, 3.802083vw, 73px);
+  --archive-label-size: clamp(12px, 1.25vw, 24px);
+  --archive-ink: #000;
+  --archive-paper: #fff;
+  --archive-divider-stroke: 1px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+  background: var(--archive-paper);
+  color: var(--archive-ink);
+}
+
+body {
+  overflow: hidden;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+.archive-screen {
+  display: grid;
+  grid-template-columns: min(var(--archive-panel-width), 100vw) minmax(0, 1fr);
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--archive-paper);
+}
+
+.archive-panel {
+  position: relative;
+  width: min(var(--archive-panel-width), 100vw);
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.archive-panel h1 {
+  position: absolute;
+  top: min(23px, 1.197917vw);
+  left: min(38px, 1.979167vw);
+  margin: 0;
+  font-family: "Anta", sans-serif;
+  font-size: var(--archive-title-size);
+  font-weight: 400;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+.project-list {
+  position: absolute;
+  top: min(233px, 12.135417vw);
+  left: min(49px, 2.552083vw);
+  margin: 0;
+  padding-left: min(24px, 1.25vw);
+  font-size: var(--archive-label-size);
+  font-weight: 600;
+  line-height: min(46px, 2.395833vw);
+  white-space: nowrap;
+}
+
+.project-list li {
+  padding-left: 0;
+}
+
+.archive-category {
+  position: absolute;
+  bottom: min(49px, 2.552083vw);
+  left: min(49px, 2.552083vw);
+  margin: 0;
+  font-size: var(--archive-label-size);
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.archive-divider {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 1;
+  display: block;
+  width: var(--archive-divider-stroke);
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.archive-divider img {
+  position: absolute;
+  top: 1111px;
+  left: 0;
+  display: block;
+  max-width: none;
+  transform: rotate(-90deg);
+  transform-origin: top left;
+}
+
+.archive-stage {
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --archive-panel-width: 100vw;
+    --archive-title-size: clamp(36px, 12vw, 48px);
+    --archive-label-size: 16px;
+  }
+
+  .archive-screen {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-panel h1 {
+    top: 20px;
+    left: 24px;
+  }
+
+  .project-list {
+    top: 180px;
+    left: 24px;
+    padding-left: 20px;
+    line-height: 1.7;
+  }
+
+  .archive-category {
+    bottom: max(32px, env(safe-area-inset-bottom));
+    left: 24px;
+    font-size: 14px;
+  }
+
+  .archive-stage {
+    display: none;
+  }
+}
