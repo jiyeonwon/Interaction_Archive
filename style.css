@@ -58,9 +58,11 @@ body {
 .project-list {
   position: absolute;
   top: min(233px, 12.135417vw);
-  left: min(49px, 2.552083vw);
+  left: 0;
+  width: 100%;
   margin: 0;
-  padding-left: min(24px, 1.25vw);
+  padding: 0;
+  list-style: none;
   font-size: var(--archive-label-size);
   font-weight: 600;
   line-height: min(46px, 2.395833vw);
@@ -68,7 +70,34 @@ body {
 }
 
 .project-list li {
-  padding-left: 0;
+  width: 100%;
+}
+
+.project-link {
+  display: flex;
+  align-items: center;
+  gap: min(8px, 0.416667vw);
+  width: 100%;
+  min-height: min(52px, 2.708333vw);
+  margin: 0;
+  padding: 0 min(16px, 0.833333vw) 0 min(45px, 2.34375vw);
+  border: 0;
+  border-radius: 0;
+  background: var(--archive-paper);
+  color: var(--archive-ink);
+  font: inherit;
+  line-height: inherit;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  outline: none;
+  background: var(--archive-ink);
+  color: var(--archive-paper);
 }
 
 .archive-category {
@@ -128,9 +157,14 @@ body {
 
   .project-list {
     top: 180px;
-    left: 24px;
-    padding-left: 20px;
+    left: 0;
     line-height: 1.7;
+  }
+
+  .project-link {
+    gap: 6px;
+    min-height: 34px;
+    padding-inline: 24px;
   }
 
   .archive-category {
