@@ -200,8 +200,14 @@ body {
   width: min(900px, 100%);
   aspect-ratio: 900 / 700;
   margin: 0;
-  border: 0;
-  background: #1b1b1b;
+  padding: 0;
+  overflow: hidden;
+  border: 0 !important;
+  outline: 0;
+  box-shadow: none;
+  vertical-align: top;
+  background: rgb(242, 242, 242);
+  clip-path: inset(0);
 }
 
 .project-frame[hidden] {
