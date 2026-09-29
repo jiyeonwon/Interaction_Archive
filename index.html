@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="./p5.min.js"></script>
   <script src="sketch.js"></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <main class="archive-screen" aria-labelledby="archive-title">
@@ -18,7 +19,12 @@
 
       <ol class="project-list">
         <li>
-          <button class="project-link" type="button">
+          <button
+            class="project-link"
+            type="button"
+            aria-controls="counterweight-view"
+            aria-expanded="false"
+          >
             <span class="project-number" aria-hidden="true">1.</span>
             <span>Counterweight</span>
           </button>
@@ -32,7 +38,16 @@
       </span>
     </section>
 
-    <section class="archive-stage" aria-hidden="true"></section>
+    <section class="archive-stage" id="counterweight-view" aria-label="Counterweight project" aria-live="polite">
+      <iframe
+        class="project-frame"
+        title="Counterweight interactive project"
+        data-local-src="../%EC%86%8C%EA%B3%BC%EC%A0%9C%20Dynamic%20Balance/index.html"
+        data-src="./counterweight.html"
+        loading="eager"
+        hidden
+      ></iframe>
+    </section>
   </main>
 </body>
 </html>

@@ -4,6 +4,7 @@
   --archive-panel-width: min(380px, 19.791667vw);
   --archive-title-size: clamp(38px, 3.802083vw, 73px);
   --archive-label-size: clamp(12px, 1.25vw, 24px);
+  --archive-left-padding: min(38px, 1.979167vw);
   --archive-ink: #000;
   --archive-paper: #fff;
   --archive-divider-stroke: 1px;
@@ -46,7 +47,7 @@ body {
 .archive-panel h1 {
   position: absolute;
   top: min(23px, 1.197917vw);
-  left: min(38px, 1.979167vw);
+  left: var(--archive-left-padding);
   margin: 0;
   font-family: "Anta", sans-serif;
   font-size: var(--archive-title-size);
@@ -80,7 +81,7 @@ body {
   width: 100%;
   min-height: min(52px, 2.708333vw);
   margin: 0;
-  padding: 0 min(16px, 0.833333vw) 0 min(45px, 2.34375vw);
+  padding: 0 min(16px, 0.833333vw) 0 var(--archive-left-padding);
   border: 0;
   border-radius: 0;
   background: var(--archive-paper);
@@ -94,7 +95,8 @@ body {
 }
 
 .project-link:hover,
-.project-link:focus-visible {
+.project-link:focus-visible,
+.project-link.is-active {
   outline: none;
   background: var(--archive-ink);
   color: var(--archive-paper);
@@ -103,7 +105,7 @@ body {
 .archive-category {
   position: absolute;
   bottom: min(49px, 2.552083vw);
-  left: min(49px, 2.552083vw);
+  left: var(--archive-left-padding);
   margin: 0;
   font-size: var(--archive-label-size);
   font-weight: 400;
@@ -134,9 +136,33 @@ body {
 }
 
 .archive-stage {
+  display: grid;
+  place-items: center;
   min-width: 0;
   min-height: 100vh;
   min-height: 100svh;
+  padding: 16px;
+  overflow: hidden;
+  background: var(--archive-paper);
+}
+
+.project-frame {
+  display: block;
+  width: min(900px, 100%);
+  aspect-ratio: 900 / 700;
+  margin: 0;
+  border: 0;
+  background: #1b1b1b;
+}
+
+.project-frame[hidden] {
+  display: none;
+}
+
+@media (max-height: 732px) and (min-width: 701px) {
+  .project-frame {
+    width: min(100%, calc(128.571vh - 41.143px));
+  }
 }
 
 @media (max-width: 700px) {
@@ -144,6 +170,7 @@ body {
     --archive-panel-width: 100vw;
     --archive-title-size: clamp(36px, 12vw, 48px);
     --archive-label-size: 16px;
+    --archive-left-padding: 24px;
   }
 
   .archive-screen {
@@ -152,7 +179,7 @@ body {
 
   .archive-panel h1 {
     top: 20px;
-    left: 24px;
+    left: var(--archive-left-padding);
   }
 
   .project-list {
@@ -169,11 +196,25 @@ body {
 
   .archive-category {
     bottom: max(32px, env(safe-area-inset-bottom));
-    left: 24px;
+    left: var(--archive-left-padding);
     font-size: 14px;
   }
 
   .archive-stage {
     display: none;
+    padding: 16px;
+  }
+
+  body.project-open {
+    overflow-y: auto;
+  }
+
+  .archive-screen.has-active-project {
+    grid-template-rows: 100svh 100svh;
+  }
+
+  .archive-screen.has-active-project .archive-stage {
+    display: grid;
+    min-height: 100svh;
   }
 }

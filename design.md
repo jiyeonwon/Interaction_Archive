@@ -27,10 +27,11 @@
 
 - 좌측 컬럼 기준 폭: `380px` (`19.791667vw`), 최대 `380px`
 - 우측 콘텐츠 영역: 남은 폭 전체
+- 공통 left padding: `38px` (`1.979167vw`), 최대 `38px`
+- `Archive`, 프로젝트 번호, 하단 라벨은 모두 공통 left padding을 시작선으로 사용한다.
 - 제목 기준 위치: `x 38px / y 23px`
-- 프로젝트 텍스트 노드 기준 위치: `x 38px / y 233px`
-- 프로젝트 행은 좌측 컬럼 전체 폭을 사용하며, 번호의 실제 잉크 시작점은 `45px`에 맞춘다. 번호와 작업명은 하나의 flex 행으로 정렬한다.
-- 하단 라벨 기준 위치: `x 49px / y 1002px`; 뷰포트 하단 기준 `49px`
+- 프로젝트 텍스트 기준 위치: `x 38px / y 233px`; 번호와 작업명은 하나의 flex 행으로 정렬한다.
+- 하단 라벨 기준 위치: `x 38px / y 1002px`; 뷰포트 하단 기준 `49px`
 - 요소별 위치도 1920px보다 좁은 데스크톱에서 동일한 폭 비율로 축소한다.
 
 ## Vertical spacing
@@ -52,7 +53,8 @@
 
 ## Alignment rules
 
-- `Archive`는 좌측 제목 그리드에서 시작한다.
+- left column grid는 `--archive-left-padding` 하나로 관리하며 개별 요소에 다른 left margin이나 padding을 만들지 않는다.
+- `Archive`, 프로젝트 번호, 하단 라벨은 같은 좌측 시작선을 사용한다.
 - 프로젝트명은 순서 번호와 제목을 하나의 목록 행으로 유지하며 `24px / 600 / 46px` 위계를 재사용한다.
 - 새 프로젝트는 기존 목록 아래에 같은 left anchor, font, line-height를 사용해 추가한다.
 - 하단 라벨은 좌측 컬럼 하단에 고정하고 컬럼 너비가 변해도 오른쪽으로 이동시키지 않는다.
@@ -67,9 +69,21 @@
 - Default: 배경 `#FFFFFF`, 텍스트 `#000000`.
 - Hover: 배경 `#000000`, 텍스트 `#FFFFFF`.
 - Keyboard focus: `:focus-visible`에서 Hover와 동일한 검은 배경과 흰 텍스트를 사용한다.
+- Active: 선택된 프로젝트는 Hover/Focus와 동일한 검은 배경과 흰 텍스트를 유지한다.
 - 배경색과 글자색은 `0.18s ease`로 전환한다.
 - 클릭 가능한 항목은 `button` 또는 `a` 자체가 전체 폭을 차지해야 하며, 자식 텍스트에만 hover를 적용하지 않는다.
 - 프로젝트가 추가되면 모든 행에 동일한 상태 규칙을 재사용한다.
+
+## Project content area
+
+- 콘텐츠 영역은 divider 바로 오른쪽에서 시작하며 좌측 컬럼이나 divider를 침범하지 않는다.
+- 클릭 전에는 콘텐츠 영역을 흰색 빈 화면으로 유지하고 iframe은 `hidden` 상태로 둔다.
+- 프로젝트를 클릭하면 현재 페이지와 좌측 컬럼을 유지한 채 오른쪽 콘텐츠 영역 안에서 iframe을 표시한다.
+- Counterweight는 원본 `Dynamic Balance`의 `900 × 700` 비율을 유지한다.
+- iframe은 최대 `900px` 폭으로 중앙 배치하고, 낮은 데스크톱 화면에서는 가용 높이에 맞춰 같은 비율로 축소한다.
+- 로컬에서는 `../소과제 Dynamic Balance/index.html`을 직접 사용한다.
+- 배포에서는 `counterweight.html` 실행 껍데기에서 기존 `Archive_Website` 저장소의 커밋 고정 `sketch.js`를 CDN으로 직접 불러온다. 인터랙션 로직 파일은 `Interaction_Archive` 안에 복제하지 않는다.
+- 프로젝트가 선택되면 버튼에 `is-active`와 `aria-expanded="true"`를 적용한다.
 
 ## Responsive rules
 
