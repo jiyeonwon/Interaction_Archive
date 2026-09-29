@@ -22,34 +22,42 @@
     }
 
     canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      aspect-ratio: 900 / 700;
-      margin: 0;
-      padding: 0;
-      border: 0;
-      outline: 0;
-      box-shadow: none;
-      background: rgb(242, 242, 242);
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      aspect-ratio: 900 / 700 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+      background: rgb(242, 242, 242) !important;
     }
 
-    .archive-project-header-mask {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      width: 40%;
-      height: 12%;
-      background: rgb(242, 242, 242);
-      pointer-events: none;
-    }
   </style>
 </head>
 <body>
-  <div class="archive-project-header-mask" aria-hidden="true"></div>
+  <script>
+    const hiddenLabels = new Set([
+      "Counterweight",
+      "gravity / mass / friction / balance"
+    ]);
+    const drawCanvasText = CanvasRenderingContext2D.prototype.fillText;
+
+    CanvasRenderingContext2D.prototype.fillText = function (value, ...args) {
+      if (hiddenLabels.has(String(value).trim())) return;
+      return drawCanvasText.call(this, value, ...args);
+    };
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/jiyeonwon/Archive_Website@9f4d4a19a129587b54da56b64a5d8a2f96b4a908/public/dynamic_balance/sketch.js"></script>
+  <script>
+    const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+    const sketchScript = document.createElement("script");
+    sketchScript.src = isLocalPreview
+      ? "../%EC%86%8C%EA%B3%BC%EC%A0%9C%20Dynamic%20Balance/sketch.js"
+      : "https://cdn.jsdelivr.net/gh/jiyeonwon/Archive_Website@9f4d4a19a129587b54da56b64a5d8a2f96b4a908/public/dynamic_balance/sketch.js";
+    document.body.append(sketchScript);
+  </script>
 </body>
 </html>

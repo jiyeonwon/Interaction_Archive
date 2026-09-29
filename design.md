@@ -81,10 +81,10 @@
 - 프로젝트를 클릭하면 현재 페이지와 좌측 컬럼을 유지한 채 오른쪽 콘텐츠 영역 안에서 iframe을 표시한다.
 - Counterweight iframe과 canvas는 원본 `Dynamic Balance`의 `900 × 700` 비율을 예외 없이 유지한다. 상단 여백부터 바닥까지 원본 캔버스 전체를 표시하며 어느 방향도 crop하지 않는다.
 - iframe은 최대 `900px` 폭으로 중앙 배치하고, 가용 너비와 높이 중 더 작은 값에 맞춰 `contain` 방식으로 균등 축소한다. canvas에는 비균등 width/height 확대, 좌표 이동, crop, 프로젝트별 임의 scale을 적용하지 않는다.
-- 삭제 대상인 상단 정보 문구는 캔버스의 크기나 위치를 바꾸지 않는 동일 배경 레이어로만 가린다. 이 레이어는 물리 도형 영역과 포인터 이벤트에 영향을 주지 않는다.
+- 삭제 대상인 상단 정보 문구는 canvas의 `fillText` 호출에서 해당 두 문자열만 제외한다. 캔버스를 덮는 mask, crop, translate는 사용하지 않는다.
 - iframe, canvas, wrapper는 `border: 0`, `outline: 0`, `box-shadow: none`을 사용하며 동일한 `rgb(242, 242, 242)` 배경으로 연결해 외곽 seam을 만들지 않는다.
-- 로컬에서는 `../소과제 Dynamic Balance/index.html`을 직접 사용한다.
-- 배포에서는 `counterweight.html` 실행 껍데기에서 기존 `Archive_Website` 저장소의 커밋 고정 `sketch.js`를 CDN으로 직접 불러온다. 인터랙션 로직 파일은 `Interaction_Archive` 안에 복제하지 않는다.
+- 로컬과 배포 모두 동일한 `counterweight.html` wrapper를 사용한다. 로컬 wrapper는 기존 `../소과제 Dynamic Balance/sketch.js`를, 배포 wrapper는 기존 `Archive_Website` 저장소의 커밋 고정 `sketch.js`를 불러온다. 인터랙션 로직 파일은 `Interaction_Archive` 안에 복제하지 않는다.
+- `1000px` 이상 화면에서는 전체 iframe wrapper만 최대 `12px` 오른쪽으로 이동한다. 캔버스 내부 좌표와 비율은 변하지 않으며 가용 영역 밖으로 crop되지 않아야 한다.
 - 프로젝트가 선택되면 버튼에 `is-active`와 `aria-expanded="true"`를 적용한다.
 
 ## Project detail navigation

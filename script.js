@@ -4,74 +4,9 @@ const projectButton = document.querySelector(".project-link");
 const projectFrame = document.querySelector(".project-frame");
 const backButton = document.querySelector(".detail-back");
 
-const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname);
-function prepareProjectFrame() {
-  const frameDocument = projectFrame.contentDocument;
-
-  if (!frameDocument) return;
-
-  if (frameDocument.querySelector("#archive-embed-reset")) return;
-
-  const frameStyle = frameDocument.createElement("style");
-  frameStyle.id = "archive-embed-reset";
-  frameStyle.textContent = `
-    html, body, main, canvas {
-      border: 0 !important;
-      outline: 0 !important;
-      box-shadow: none !important;
-    }
-
-    html, body, main {
-      width: 100% !important;
-      height: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow: visible !important;
-      background: rgb(242, 242, 242) !important;
-    }
-
-    body, main {
-      display: block !important;
-    }
-
-    canvas {
-      display: block !important;
-      width: 100% !important;
-      height: 100% !important;
-      aspect-ratio: 900 / 700 !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      background: rgb(242, 242, 242) !important;
-    }
-
-    .archive-project-header-mask {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      width: 40%;
-      height: 12%;
-      border: 0;
-      outline: 0;
-      background: rgb(242, 242, 242);
-      pointer-events: none;
-    }
-  `;
-  frameDocument.head.append(frameStyle);
-
-  if (!frameDocument.querySelector(".archive-project-header-mask")) {
-    const headerMask = frameDocument.createElement("div");
-    headerMask.className = "archive-project-header-mask";
-    headerMask.setAttribute("aria-hidden", "true");
-    frameDocument.body.append(headerMask);
-  }
-}
-
 function openCounterweight({ updateHash = true } = {}) {
   if (!projectFrame.hasAttribute("src")) {
-    projectFrame.src = isLocalPreview
-      ? projectFrame.dataset.localSrc
-      : projectFrame.dataset.src;
+    projectFrame.src = projectFrame.dataset.src;
   }
 
   projectFrame.hidden = false;
@@ -104,7 +39,6 @@ function closeProject({ focusTarget, updateHash = true } = {}) {
 }
 
 projectButton.addEventListener("click", () => openCounterweight());
-projectFrame.addEventListener("load", prepareProjectFrame);
 backButton.addEventListener("click", () => closeProject({ focusTarget: projectButton }));
 archiveHome.addEventListener("click", () => closeProject({ focusTarget: archiveHome }));
 
