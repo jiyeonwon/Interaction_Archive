@@ -79,9 +79,9 @@
 - 콘텐츠 영역은 divider 바로 오른쪽에서 시작하며 좌측 컬럼이나 divider를 침범하지 않는다.
 - 클릭 전에는 콘텐츠 영역을 흰색 빈 화면으로 유지하고 iframe은 `hidden` 상태로 둔다.
 - 프로젝트를 클릭하면 현재 페이지와 좌측 컬럼을 유지한 채 오른쪽 콘텐츠 영역 안에서 iframe을 표시한다.
-- Counterweight의 원본 캔버스는 `900 × 700` 비율을 유지한다. 삭제한 상단 정보 영역 `90px`은 별도 mask나 여백으로 남기지 않고 표시 viewport에서 제외한다.
-- 실제 프로젝트 표시 viewport는 `900 × 610`이며, 원본 캔버스를 비율 그대로 위로 `90px` 이동해 시소, 삼각형, 원, 사각형, 바닥이 모두 보이는 작업 영역만 렌더링한다.
-- iframe은 최대 `900px` 폭으로 중앙 배치하고, 가용 너비와 높이 중 더 작은 값에 맞춰 비율을 유지한 채 축소한다. canvas에는 비균등 width/height 확대, crop, 프로젝트별 임의 scale을 적용하지 않는다.
+- Counterweight iframe과 canvas는 원본 `Dynamic Balance`의 `900 × 700` 비율을 예외 없이 유지한다. 상단 여백부터 바닥까지 원본 캔버스 전체를 표시하며 어느 방향도 crop하지 않는다.
+- iframe은 최대 `900px` 폭으로 중앙 배치하고, 가용 너비와 높이 중 더 작은 값에 맞춰 `contain` 방식으로 균등 축소한다. canvas에는 비균등 width/height 확대, 좌표 이동, crop, 프로젝트별 임의 scale을 적용하지 않는다.
+- 삭제 대상인 상단 정보 문구는 캔버스의 크기나 위치를 바꾸지 않는 동일 배경 레이어로만 가린다. 이 레이어는 물리 도형 영역과 포인터 이벤트에 영향을 주지 않는다.
 - iframe, canvas, wrapper는 `border: 0`, `outline: 0`, `box-shadow: none`을 사용하며 동일한 `rgb(242, 242, 242)` 배경으로 연결해 외곽 seam을 만들지 않는다.
 - 로컬에서는 `../소과제 Dynamic Balance/index.html`을 직접 사용한다.
 - 배포에서는 `counterweight.html` 실행 껍데기에서 기존 `Archive_Website` 저장소의 커밋 고정 `sketch.js`를 CDN으로 직접 불러온다. 인터랙션 로직 파일은 `Interaction_Archive` 안에 복제하지 않는다.

@@ -197,27 +197,21 @@ body {
   grid-column: 2;
   justify-self: center;
   display: block;
-  width: min(900px, 100%);
-  aspect-ratio: 900 / 610;
+  width: min(900px, 100%, calc(128.571vh - 41.143px));
+  width: min(900px, 100%, calc(128.571svh - 41.143px));
+  aspect-ratio: 900 / 700;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: visible;
   border: 0 !important;
   outline: 0;
   box-shadow: none;
   vertical-align: top;
   background: rgb(242, 242, 242);
-  clip-path: inset(0);
 }
 
 .project-frame[hidden] {
   display: none;
-}
-
-@media (max-height: 642px) and (min-width: 701px) {
-  .project-frame {
-    width: min(100%, calc(147.541vh - 47.213px));
-  }
 }
 
 @media (max-width: 700px) {
@@ -274,6 +268,7 @@ body {
   .project-frame {
     grid-column: 1;
     grid-row: 2;
+    width: min(900px, 100%, calc(128.571svh - 87.429px));
   }
 
   body.project-open {
