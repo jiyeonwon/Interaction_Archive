@@ -15,7 +15,9 @@
 <body>
   <main class="archive-screen" aria-labelledby="archive-title">
     <section class="archive-panel" aria-label="Interactive design archive">
-      <h1 id="archive-title">Archive</h1>
+      <button class="archive-home" id="archive-title" type="button" aria-label="Archive home">
+        Archive
+      </button>
 
       <ol class="project-list">
         <li>
@@ -39,6 +41,7 @@
     </section>
 
     <section class="archive-stage" id="counterweight-view" aria-label="Counterweight project" aria-live="polite">
+      <button class="detail-back" type="button" hidden>← Back</button>
       <iframe
         class="project-frame"
         title="Counterweight interactive project"

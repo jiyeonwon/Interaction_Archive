@@ -85,6 +85,18 @@
 - 배포에서는 `counterweight.html` 실행 껍데기에서 기존 `Archive_Website` 저장소의 커밋 고정 `sketch.js`를 CDN으로 직접 불러온다. 인터랙션 로직 파일은 `Interaction_Archive` 안에 복제하지 않는다.
 - 프로젝트가 선택되면 버튼에 `is-active`와 `aria-expanded="true"`를 적용한다.
 
+## Project detail navigation
+
+- `Archive` 제목은 공통 home navigation이다. 클릭하면 새로고침 없이 선택된 프로젝트와 active 상태를 닫고, 콘텐츠 영역이 비어 있는 첫 화면으로 돌아간다.
+- home navigation은 제목의 기존 위치, 크기, 공통 left grid를 그대로 유지한다. 별도 버튼 배경이나 padding은 사용하지 않고 `cursor: pointer`만 적용한다.
+- home hover는 `0.18s ease`로 opacity를 `0.68`까지 낮추고, keyboard focus는 `1px` 검은 outline과 `4px` offset으로 표시한다.
+- 상세 화면에는 오른쪽 콘텐츠 영역 상단에 `← Back`을 공통 navigation으로 표시한다.
+- 데스크톱 back 기준 위치는 콘텐츠 영역의 `top 23px / left 32px`, 글자 크기는 최대 `16px`, 굵기는 `400`, 행간은 `1.4`이다. stage 내부 절대 좌표를 사용하므로 divider와 콘텐츠 정렬을 움직이지 않는다.
+- 모바일 back 기준 위치는 콘텐츠 영역의 `top 16px / left 16px`, 글자 크기는 `14px`이다.
+- back hover는 `0.18s ease`로 opacity를 `0.62`까지 낮추고, keyboard focus는 `1px` 검은 outline과 `3px` offset으로 표시한다.
+- `← Back`을 클릭하면 iframe을 닫고 실행 소스를 해제한 뒤 프로젝트 선택 전 화면으로 돌아간다. 브라우저의 기본 뒤로가기에 의존하지 않는다.
+- 프로젝트 상세 navigation은 iframe보다 높은 레이어에 놓되 콘텐츠의 중앙 정렬, 크기, 비율을 변경하거나 divider를 침범하지 않는다.
+
 ## Responsive rules
 
 - `701px` 이상: Figma 1920px 기준값을 viewport 폭에 비례해 축소하고 원본 크기를 최대값으로 제한한다.

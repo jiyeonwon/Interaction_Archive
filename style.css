@@ -44,16 +44,32 @@ body {
   min-height: 100svh;
 }
 
-.archive-panel h1 {
+.archive-home {
   position: absolute;
   top: min(23px, 1.197917vw);
   left: var(--archive-left-padding);
   margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
   font-family: "Anta", sans-serif;
   font-size: var(--archive-title-size);
   font-weight: 400;
   line-height: 1.7;
+  text-align: left;
   white-space: nowrap;
+  cursor: pointer;
+  transition: opacity 0.18s ease;
+}
+
+.archive-home:hover {
+  opacity: 0.68;
+}
+
+.archive-home:focus-visible {
+  outline: 1px solid var(--archive-ink);
+  outline-offset: 4px;
 }
 
 .project-list {
@@ -136,6 +152,7 @@ body {
 }
 
 .archive-stage {
+  position: relative;
   display: grid;
   place-items: center;
   min-width: 0;
@@ -144,6 +161,34 @@ body {
   padding: 16px;
   overflow: hidden;
   background: var(--archive-paper);
+}
+
+.detail-back {
+  position: absolute;
+  top: min(23px, 1.197917vw);
+  left: clamp(16px, 1.666667vw, 32px);
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--archive-ink);
+  font: 400 clamp(12px, 0.833333vw, 16px) / 1.4 "Inter", Arial, sans-serif;
+  cursor: pointer;
+  transition: opacity 0.18s ease;
+}
+
+.detail-back:hover {
+  opacity: 0.62;
+}
+
+.detail-back:focus-visible {
+  outline: 1px solid var(--archive-ink);
+  outline-offset: 3px;
+}
+
+.detail-back[hidden] {
+  display: none;
 }
 
 .project-frame {
@@ -177,7 +222,7 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .archive-panel h1 {
+  .archive-home {
     top: 20px;
     left: var(--archive-left-padding);
   }
@@ -203,6 +248,12 @@ body {
   .archive-stage {
     display: none;
     padding: 16px;
+  }
+
+  .detail-back {
+    top: 16px;
+    left: 16px;
+    font-size: 14px;
   }
 
   body.project-open {
