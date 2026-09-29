@@ -8,6 +8,7 @@
   --archive-ink: #000;
   --archive-paper: #fff;
   --archive-divider-stroke: 1px;
+  --detail-nav-rail: clamp(88px, 6.25vw, 120px);
 }
 
 * {
@@ -154,7 +155,8 @@ body {
 .archive-stage {
   position: relative;
   display: grid;
-  place-items: center;
+  grid-template-columns: var(--detail-nav-rail) minmax(0, 1fr) var(--detail-nav-rail);
+  align-items: center;
   min-width: 0;
   min-height: 100vh;
   min-height: 100svh;
@@ -164,11 +166,11 @@ body {
 }
 
 .detail-back {
-  position: absolute;
-  top: min(23px, 1.197917vw);
-  left: clamp(16px, 1.666667vw, 32px);
+  grid-column: 1;
+  align-self: start;
+  justify-self: start;
   z-index: 2;
-  margin: 0;
+  margin: clamp(0px, 0.364583vw, 7px) 0 0 clamp(0px, 0.833333vw, 16px);
   padding: 0;
   border: 0;
   background: transparent;
@@ -192,6 +194,8 @@ body {
 }
 
 .project-frame {
+  grid-column: 2;
+  justify-self: center;
   display: block;
   width: min(900px, 100%);
   aspect-ratio: 900 / 700;
@@ -247,13 +251,23 @@ body {
 
   .archive-stage {
     display: none;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: center;
+    row-gap: 16px;
     padding: 16px;
   }
 
   .detail-back {
-    top: 16px;
-    left: 16px;
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
     font-size: 14px;
+  }
+
+  .project-frame {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   body.project-open {

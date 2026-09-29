@@ -91,8 +91,11 @@
 - home navigation은 제목의 기존 위치, 크기, 공통 left grid를 그대로 유지한다. 별도 버튼 배경이나 padding은 사용하지 않고 `cursor: pointer`만 적용한다.
 - home hover는 `0.18s ease`로 opacity를 `0.68`까지 낮추고, keyboard focus는 `1px` 검은 outline과 `4px` offset으로 표시한다.
 - 상세 화면에는 오른쪽 콘텐츠 영역 상단에 `← Back`을 공통 navigation으로 표시한다.
-- 데스크톱 back 기준 위치는 콘텐츠 영역의 `top 23px / left 32px`, 글자 크기는 최대 `16px`, 굵기는 `400`, 행간은 `1.4`이다. stage 내부 절대 좌표를 사용하므로 divider와 콘텐츠 정렬을 움직이지 않는다.
-- 모바일 back 기준 위치는 콘텐츠 영역의 `top 16px / left 16px`, 글자 크기는 `14px`이다.
+- 데스크톱 상세 stage는 `Back rail / Project content / Balance rail`의 3열 grid를 사용한다. 좌우 rail은 동일한 `clamp(88px, 6.25vw, 120px)` 폭으로 유지해 프로젝트 콘텐츠의 기존 중앙축을 보존한다.
+- `← Back`은 첫 번째 rail, 프로젝트 iframe은 두 번째 column에 놓는다. 프로젝트 제목과 설명의 내부 x축 정렬은 iframe 안의 기존 기준을 유지하며 navigation 때문에 별도 offset을 추가하지 않는다.
+- Back rail과 project content column은 서로 겹치지 않는 독립 영역이다. 같은 너비의 오른쪽 balance rail을 함께 두어 화면이 넓을 때 iframe의 기존 중앙 정렬이 밀리지 않게 한다.
+- 데스크톱 back 글자 크기는 최대 `16px`, 굵기는 `400`, 행간은 `1.4`이다. stage의 기본 `16px` padding 안에서 상단 및 좌측 간격을 반응형 margin으로 보정한다.
+- `700px` 이하에서는 navigation과 콘텐츠를 `Back row / Project content row`의 2행 grid로 전환하고 두 행 사이에 `16px` gap을 둔다. 모바일 back 글자 크기는 `14px`이다.
 - back hover는 `0.18s ease`로 opacity를 `0.62`까지 낮추고, keyboard focus는 `1px` 검은 outline과 `3px` offset으로 표시한다.
 - `← Back`을 클릭하면 iframe을 닫고 실행 소스를 해제한 뒤 프로젝트 선택 전 화면으로 돌아간다. 브라우저의 기본 뒤로가기에 의존하지 않는다.
 - 프로젝트 상세 navigation은 iframe보다 높은 레이어에 놓되 콘텐츠의 중앙 정렬, 크기, 비율을 변경하거나 divider를 침범하지 않는다.
