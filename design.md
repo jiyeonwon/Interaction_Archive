@@ -86,6 +86,11 @@
 - 로컬과 배포 모두 동일한 `counterweight.html` wrapper를 사용한다. 로컬 wrapper는 기존 `../소과제 Dynamic Balance/sketch.js`를, 배포 wrapper는 기존 `Archive_Website` 저장소의 커밋 고정 `sketch.js`를 불러온다. 인터랙션 로직 파일은 `Interaction_Archive` 안에 복제하지 않는다.
 - `1000px` 이상 화면에서는 전체 iframe wrapper만 최대 `12px` 오른쪽으로 이동한다. 캔버스 내부 좌표와 비율은 변하지 않으며 가용 영역 밖으로 crop되지 않아야 한다.
 - 프로젝트가 선택되면 버튼에 `is-active`와 `aria-expanded="true"`를 적용한다.
+- 프로젝트 목록과 상세 전환은 하나의 공통 project registry와 하나의 `.project-frame` iframe을 재사용한다. 새 프로젝트를 위해 별도 상세 레이아웃을 만들지 않는다.
+- 등록 순서는 `01 Counterweight`, `02 Meting Ice`이며 모든 항목은 같은 row, typography, hover/focus/active 규칙을 사용한다.
+- Meting Ice는 기존 `소과제 2/index.html`과 `sketch.js`를 `melting-ice.html`, `melting-ice.js`로 통합하고, 공통 iframe 안에서 실행한다.
+- Meting Ice의 TAP / RUB / HOLD / RESET은 원본 pointer event 구조를 유지해 mouse와 touch 입력을 함께 지원한다.
+- 각 프로젝트 iframe은 같은 grid column, 최대 폭, 중앙 정렬, 반응형 너비/높이 제한을 사용하며 프로젝트별 임의 위치나 padding override를 만들지 않는다.
 
 ## Project detail navigation
 

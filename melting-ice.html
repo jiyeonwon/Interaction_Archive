@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Meting Ice</title>
+  <meta
+    name="description"
+    content="서로 다른 터치 동작을 통해 얼음이 녹고 사라지는 과정을 탐구한 인터랙티브 웹."
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 50% 42%,
+          #fcfefe 0%,
+          #f2f7f8 45%,
+          #e6eef1 100%
+        );
+
+      color: #111;
+    }
+
+
+    /* =========================
+       PAGE
+    ========================= */
+
+    .page {
+      position: relative;
+
+      width: 100vw;
+      height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      position: absolute;
+
+      top: 28px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      z-index: 100;
+
+      pointer-events: none;
+
+      text-align: center;
+    }
+
+
+    .instruction {
+      font-size: 15px;
+
+      letter-spacing: 0.14em;
+
+      color:
+        rgba(40, 53, 58, 0.50);
+
+      white-space: nowrap;
+    }
+
+
+    /* =========================
+       STAGE
+    ========================= */
+
+    .stage {
+      position: relative;
+
+      width: min(720px, 100vw);
+      height: min(610px, 66vh);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    /* =========================
+       ICE WRAP
+    ========================= */
+
+    .ice-wrap {
+      position: relative;
+
+      width: 320px;
+      height: 320px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      touch-action: none;
+
+      user-select: none;
+      -webkit-user-select: none;
+
+      z-index: 20;
+    }
+
+
+    /* =========================
+       ICE
+    ========================= */
+
+    .ice {
+      position: relative;
+
+      width: 225px;
+      height: 225px;
+
+      overflow: hidden;
+
+      touch-action: none;
+
+      user-select: none;
+      -webkit-user-select: none;
+
+      transform-origin:
+        center 82%;
+
+      border-radius:
+        48% 52% 49% 51%
+        /
+        47% 49% 51% 53%;
+
+      border:
+        1px solid
+        rgba(255,255,255,0.94);
+
+      background:
+
+        radial-gradient(
+          circle at 28% 23%,
+          rgba(255,255,255,0.99) 0%,
+          rgba(255,255,255,0.76) 12%,
+          rgba(255,255,255,0) 31%
+        ),
+
+        radial-gradient(
+          circle at 72% 72%,
+          rgba(96,174,196,0.22) 0%,
+          rgba(96,174,196,0) 44%
+        ),
+
+        radial-gradient(
+          circle at 48% 45%,
+          rgba(239,251,253,0.42) 0%,
+          rgba(239,251,253,0.12) 42%,
+          rgba(239,251,253,0) 72%
+        ),
+
+        radial-gradient(
+          circle at 40% 78%,
+          rgba(213,241,248,0.42),
+          transparent 40%
+        ),
+
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.84) 0%,
+          rgba(218,241,247,0.54) 27%,
+          rgba(146,200,214,0.26) 61%,
+          rgba(232,248,251,0.68) 100%
+        );
+
+      box-shadow:
+
+        inset
+        28px 28px 42px
+        rgba(255,255,255,0.78),
+
+        inset
+        -22px -24px 40px
+        rgba(70,140,160,0.15),
+
+        inset
+        0 0 32px
+        rgba(255,255,255,0.52),
+
+        0 20px 40px
+        rgba(57,95,105,0.10);
+
+      backdrop-filter:
+        blur(10px)
+        saturate(1.2);
+
+      -webkit-backdrop-filter:
+        blur(10px)
+        saturate(1.2);
+
+      will-change:
+        transform,
+        filter,
+        opacity;
+    }
+
+
+    .ice::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 10px;
+
+      border-radius:
+        50% 47% 52% 48%
+        /
+        48% 52% 47% 53%;
+
+      border:
+        1px solid
+        rgba(255,255,255,0.42);
+
+      transform:
+        rotate(-3deg);
+
+      pointer-events: none;
+    }
+
+
+    .ice::after {
+      content: "";
+
+      position: absolute;
+
+      left: 24px;
+      top: 20px;
+
+      width: 118px;
+      height: 155px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          125deg,
+          rgba(255,255,255,0.92),
+          rgba(255,255,255,0.08) 43%,
+          rgba(86,154,171,0.06) 78%
+        );
+
+      transform:
+        rotate(15deg);
+
+      filter:
+        blur(8px);
+
+      opacity: 0.84;
+
+      pointer-events: none;
+    }
+
+
+    /* =========================
+       REFRACTION
+    ========================= */
+
+    .refraction {
+      position: absolute;
+
+      border:
+        1px solid
+        rgba(255,255,255,0.46);
+
+      border-radius: 50%;
+
+      pointer-events: none;
+
+      filter:
+        blur(0.8px);
+    }
+
+
+    .refraction.one {
+      width: 100px;
+      height: 58px;
+
+      left: 34px;
+      top: 90px;
+
+      transform: rotate(-24deg);
+
+      opacity: 0.56;
+    }
+
+
+    .refraction.two {
+      width: 73px;
+      height: 42px;
+
+      right: 21px;
+      top: 52px;
+
+      transform: rotate(28deg);
+
+      opacity: 0.40;
+    }
+
+
+    .refraction.three {
+      width: 78px;
+      height: 52px;
+
+      left: 72px;
+      bottom: 26px;
+
+      transform: rotate(10deg);
+
+      opacity: 0.28;
+    }
+
+
+    .refraction.four {
+      width: 44px;
+      height: 84px;
+
+      left: 30px;
+      top: 38px;
+
+      transform: rotate(17deg);
+
+      opacity: 0.25;
+    }
+
+
+    /* =========================
+       BUBBLES
+    ========================= */
+
+    .bubble {
+      position: absolute;
+
+      border-radius: 50%;
+
+      border:
+        1px solid
+        rgba(255,255,255,0.90);
+
+      background:
+        rgba(255,255,255,0.08);
+
+      pointer-events: none;
+    }
+
+
+    .b1 {
+      width: 7px;
+      height: 7px;
+      left: 68%;
+      top: 25%;
+    }
+
+    .b2 {
+      width: 5px;
+      height: 5px;
+      left: 34%;
+      top: 47%;
+    }
+
+    .b3 {
+      width: 9px;
+      height: 9px;
+      left: 59%;
+      top: 66%;
+    }
+
+    .b4 {
+      width: 4px;
+      height: 4px;
+      left: 28%;
+      top: 71%;
+    }
+
+    .b5 {
+      width: 6px;
+      height: 6px;
+      left: 73%;
+      top: 48%;
+    }
+
+    .b6 {
+      width: 3px;
+      height: 3px;
+      left: 46%;
+      top: 32%;
+    }
+
+
+    /* =========================
+       RUB MELT TRAIL
+
+       손가락이 지나간 자리에
+       생성되는 녹은 흔적
+    ========================= */
+
+    .melt-hole {
+      position: absolute;
+
+      width: 44px;
+      height: 44px;
+
+      transform:
+        translate(-50%, -50%);
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(238,247,249,0.96) 0%,
+          rgba(228,241,245,0.88) 35%,
+          rgba(211,231,237,0.46) 58%,
+          rgba(190,220,228,0.10) 76%,
+          transparent 100%
+        );
+
+      box-shadow:
+        inset
+        0 0 8px
+        rgba(119,181,199,0.22),
+
+        0 0 8px
+        rgba(255,255,255,0.60);
+
+      filter:
+        blur(1px);
+
+      pointer-events: none;
+
+      z-index: 20;
+
+      mix-blend-mode: screen;
+    }
+
+
+    /* =========================
+       CORE
+    ========================= */
+
+    .core {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 20px;
+      height: 20px;
+
+      transform:
+        translate(-50%, -50%);
+
+      border-radius: 50%;
+
+      display: none;
+
+      pointer-events: none;
+
+      z-index: 40;
+    }
+
+
+    .core::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 6px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(29,48,56,0.40);
+    }
+
+
+    .core::after {
+      content: "";
+
+      position: absolute;
+
+      inset: -13px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid
+        rgba(29,48,56,0.16);
+    }
+
+
+    .core-ring {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 70px;
+      height: 70px;
+
+      transform:
+        translate(-50%, -50%);
+
+      border:
+        1px solid
+        rgba(29,48,56,0.08);
+
+      border-radius: 50%;
+
+      display: none;
+
+      pointer-events: none;
+
+      z-index: 38;
+    }
+
+
+    /* =========================
+       WATER
+    ========================= */
+
+    .water-main {
+      position: absolute;
+
+      left: 50%;
+      top: 70%;
+
+      width: 135px;
+      height: 28px;
+
+      transform:
+        translateX(-50%)
+        scaleX(0.08)
+        scaleY(0.35);
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          ellipse,
+          rgba(95,177,201,0.31) 0%,
+          rgba(142,207,225,0.17) 43%,
+          rgba(198,232,241,0.08) 62%,
+          transparent 79%
+        );
+
+      filter:
+        blur(2px);
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      z-index: 4;
+    }
+
+
+    .water-small {
+      position: absolute;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          ellipse,
+          rgba(91,176,200,0.22),
+          rgba(176,221,232,0.09) 52%,
+          transparent 76%
+        );
+
+      filter:
+        blur(1.5px);
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      z-index: 3;
+    }
+
+
+    .water-left {
+      width: 70px;
+      height: 19px;
+
+      left: 35%;
+      top: 70%;
+    }
+
+
+    .water-right {
+      width: 76px;
+      height: 19px;
+
+      left: 55%;
+      top: 72%;
+    }
+
+
+    .water-back {
+      width: 85px;
+      height: 17px;
+
+      left: 44%;
+      top: 67%;
+    }
+
+
+    /* =========================
+       PARTICLE
+    ========================= */
+
+    .ice-particle {
+      position: fixed;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 30% 25%,
+          rgba(255,255,255,1),
+          rgba(203,235,244,0.88) 46%,
+          rgba(133,197,215,0.62)
+        );
+
+      border:
+        1px solid
+        rgba(255,255,255,0.9);
+
+      pointer-events: none;
+
+      z-index: 180;
+    }
+
+
+    .droplet {
+      position: absolute;
+
+      width: 7px;
+      height: 11px;
+
+      border-radius:
+        50% 50% 60% 60%
+        /
+        35% 35% 65% 65%;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.97),
+          rgba(102,185,209,0.5)
+        );
+
+      border:
+        1px solid
+        rgba(161,214,228,0.65);
+
+      pointer-events: none;
+
+      z-index: 15;
+    }
+
+
+    /* =========================
+       TOUCH
+    ========================= */
+
+    .touch-ring {
+      position: fixed;
+
+      width: 36px;
+      height: 36px;
+
+      left: 0;
+      top: 0;
+
+      transform:
+        translate(-50%, -50%);
+
+      border:
+        1px solid
+        rgba(30,46,52,0.18);
+
+      border-radius: 50%;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      z-index: 150;
+    }
+
+
+    /* =========================
+       TEMPERATURE
+    ========================= */
+
+    .temperature {
+      position: fixed;
+
+      left: 0;
+      top: 0;
+
+      transform:
+        translate(22px, 18px);
+
+      font-size: 12px;
+
+      letter-spacing: 0.06em;
+
+      font-variant-numeric:
+        tabular-nums;
+
+      color:
+        rgba(20,34,40,0.78);
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      z-index: 170;
+    }
+
+
+    /* =========================
+       BOTTOM
+    ========================= */
+
+    .bottom {
+      position: absolute;
+
+      left: 28px;
+      right: 28px;
+      bottom: 22px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      z-index: 120;
+    }
+
+
+    .levels {
+      display: flex;
+      gap: 7px;
+    }
+
+
+    .level-button {
+      min-height: 42px;
+
+      padding:
+        0 14px;
+
+      border:
+        1px solid
+        rgba(20,31,36,0.14);
+
+      background:
+        transparent;
+
+      color:
+        rgba(20,31,36,0.42);
+
+      font-size: 10px;
+
+      letter-spacing: 0.1em;
+
+      cursor: pointer;
+
+      -webkit-tap-highlight-color:
+        transparent;
+    }
+
+
+    .level-button.active {
+      background:
+        rgba(18,28,32,0.92);
+
+      border-color:
+        rgba(18,28,32,0.92);
+
+      color: #fff;
+    }
+
+
+    .reset {
+      min-height: 42px;
+
+      padding: 0 10px;
+
+      border: none;
+
+      background: transparent;
+
+      color:
+        rgba(20,31,36,0.34);
+
+      font-size: 10px;
+
+      letter-spacing: 0.1em;
+
+      cursor: pointer;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      .cta {
+        top: 20px;
+      }
+
+
+      .instruction {
+        font-size: 12px;
+      }
+
+
+      .stage {
+        height: 64vh;
+      }
+
+
+      .ice-wrap {
+        width: 270px;
+        height: 270px;
+      }
+
+
+      .ice {
+        width: 180px;
+        height: 180px;
+      }
+
+
+      .bottom {
+        left: 16px;
+        right: 16px;
+        bottom: 14px;
+      }
+
+
+      .levels {
+        gap: 4px;
+      }
+
+
+      .level-button {
+        min-height: 40px;
+
+        padding:
+          0 8px;
+
+        font-size: 8px;
+      }
+
+
+      .reset {
+        font-size: 8px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+<main class="page">
+
+
+  <div class="cta">
+
+    <div
+      class="instruction"
+      id="instruction"
+    >
+      TAP THE ICE!
+    </div>
+
+  </div>
+
+
+  <section class="stage">
+
+
+    <div
+      class="ice-wrap"
+      id="iceWrap"
+    >
+
+
+      <div
+        class="ice"
+        id="ice"
+      >
+
+
+        <div class="refraction one"></div>
+        <div class="refraction two"></div>
+        <div class="refraction three"></div>
+        <div class="refraction four"></div>
+
+
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+        <div class="bubble b3"></div>
+        <div class="bubble b4"></div>
+        <div class="bubble b5"></div>
+        <div class="bubble b6"></div>
+
+
+        <div
+          class="core-ring"
+          id="coreRing"
+        ></div>
+
+
+        <div
+          class="core"
+          id="core"
+        ></div>
+
+
+      </div>
+
+
+    </div>
+
+
+    <div
+      class="water-main"
+      id="waterMain"
+    ></div>
+
+
+    <div
+      class="water-small water-left"
+      id="waterLeft"
+    ></div>
+
+
+    <div
+      class="water-small water-right"
+      id="waterRight"
+    ></div>
+
+
+    <div
+      class="water-small water-back"
+      id="waterBack"
+    ></div>
+
+
+  </section>
+
+
+  <div
+    class="touch-ring"
+    id="touchRing"
+  ></div>
+
+
+  <div
+    class="temperature"
+    id="temperature"
+  >
+    18°C
+  </div>
+
+
+  <footer class="bottom">
+
+
+    <nav class="levels">
+
+      <button
+        class="level-button active"
+        data-level="1"
+      >
+        01 TAP
+      </button>
+
+
+      <button
+        class="level-button"
+        data-level="2"
+      >
+        02 RUB
+      </button>
+
+
+      <button
+        class="level-button"
+        data-level="3"
+      >
+        03 HOLD
+      </button>
+
+    </nav>
+
+
+    <button
+      class="reset"
+      id="resetButton"
+    >
+      RESET
+    </button>
+
+
+  </footer>
+
+
+</main>
+
+
+<script src="melting-ice.js"></script>
+
+</body>
+</html>

@@ -24,11 +24,24 @@
           <button
             class="project-link"
             type="button"
-            aria-controls="counterweight-view"
+            data-project="counterweight"
+            aria-controls="project-view"
             aria-expanded="false"
           >
-            <span class="project-number" aria-hidden="true">1.</span>
+            <span class="project-number" aria-hidden="true">01</span>
             <span>Counterweight</span>
+          </button>
+        </li>
+        <li>
+          <button
+            class="project-link"
+            type="button"
+            data-project="melting-ice"
+            aria-controls="project-view"
+            aria-expanded="false"
+          >
+            <span class="project-number" aria-hidden="true">02</span>
+            <span>Meting Ice</span>
           </button>
         </li>
       </ol>
@@ -40,12 +53,11 @@
       </span>
     </section>
 
-    <section class="archive-stage" id="counterweight-view" aria-label="Counterweight project" aria-live="polite">
+    <section class="archive-stage" id="project-view" aria-label="Interactive project" aria-live="polite">
       <button class="detail-back" type="button" hidden>← Back</button>
       <iframe
         class="project-frame"
-        title="Counterweight interactive project"
-        data-src="./counterweight.html"
+        title="Interactive project"
         loading="eager"
         hidden
       ></iframe>
