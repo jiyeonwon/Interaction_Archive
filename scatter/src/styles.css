@@ -24,8 +24,8 @@ dialog .modal-close:active {
   box-shadow: none;
 }
 dialog .modal-close:focus-visible {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  text-decoration: none;
+  opacity: .65;
 }
 #delete-archive {
   color: var(--pink);
