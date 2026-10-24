@@ -3,7 +3,6 @@ const archiveHome = document.querySelector(".archive-home");
 const projectButtons = [...document.querySelectorAll(".project-link")];
 const projectFrame = document.querySelector(".project-frame");
 const projectView = document.querySelector(".archive-stage");
-const backButton = document.querySelector(".detail-back");
 
 const projects = {
   counterweight: {
@@ -43,7 +42,6 @@ function openProject(projectId, { updateHash = true } = {}) {
   projectFrame.hidden = false;
   projectFrame.title = `${project.title} interactive project`;
   projectView.setAttribute("aria-label", `${project.title} project`);
-  backButton.hidden = false;
   projectButtons.forEach((button) => {
     const isActive = button === projectButton;
     button.classList.toggle("is-active", isActive);
@@ -64,7 +62,6 @@ function closeProject({ focusTarget, updateHash = true } = {}) {
   projectFrame.removeAttribute("src");
   projectFrame.title = "Interactive project";
   projectView.setAttribute("aria-label", "Interactive project");
-  backButton.hidden = true;
   projectButtons.forEach((button) => {
     button.classList.remove("is-active");
     button.setAttribute("aria-expanded", "false");
@@ -86,12 +83,6 @@ projectButtons.forEach((button) => {
   button.addEventListener("click", () => openProject(button.dataset.project));
 });
 
-backButton.addEventListener("click", () => {
-  const activeButton = projectButtons.find(
-    (button) => button.dataset.project === activeProjectId
-  );
-  closeProject({ focusTarget: activeButton });
-});
 archiveHome.addEventListener("click", () => closeProject({ focusTarget: archiveHome }));
 
 window.addEventListener("hashchange", () => {
