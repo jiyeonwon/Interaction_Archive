@@ -1,0 +1,5 @@
+@font-face{font-family:Pretendard;src:url('assets/fonts/pretendard-regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Pretendard;src:url('assets/fonts/pretendard-medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:Pretendard;src:url('assets/fonts/pretendard-semibold.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Alien Encounters';src:url('assets/fonts/Alien-Encounters-Regular.ttf') format('truetype');font-display:swap}
+:root{--white:#fff;--pink:#ff3fb5;--primary:#ff1fa9;--lime:#d9ff5c;--black:#000;--gray:#666;--muted:#505050;--font:Pretendard,sans-serif;--logo-font:'Alien Encounters',sans-serif;--line-height:1.7;--page-padding:3.0729167vw;--radius:30px;--button-radius:20px;--border:2px solid var(--pink);--ease:cubic-bezier(.2,.8,.2,1);--unit:calc(100vw / 1920)}

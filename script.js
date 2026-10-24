@@ -18,6 +18,10 @@ const projects = {
     year: "2026",
     summary: "서로 다른 터치 동작을 통해 얼음이 녹고 사라지는 과정을 탐구한 인터랙티브 웹.",
     description: "이 웹에서는 탭, 문지르기, 길게 누르기처럼 서로 다른 터치 방식으로 얼음을 녹일 수 있다. 한 번 탭하면 얼음이 녹기 시작하고, 표면을 반복해서 문지르면 손가락이 지나간 궤적을 따라 얼음이 녹으며 작은 입자들이 주변으로 흩어진다. 얼음의 중심을 길게 누르면 온도가 상승하고, 일정 온도에 도달한 뒤부터 천천히 녹아 사라진다."
+  },
+  scatter: {
+    title: "SCATTER!",
+    src: "./scatter/index.html#home"
   }
 };
 
@@ -46,6 +50,7 @@ function openProject(projectId, { updateHash = true } = {}) {
     button.setAttribute("aria-expanded", String(isActive));
   });
   archiveScreen.classList.add("has-active-project");
+  archiveScreen.classList.toggle("has-scatter-project", projectId === "scatter");
   document.body.classList.add("project-open");
   activeProjectId = projectId;
 
@@ -65,6 +70,7 @@ function closeProject({ focusTarget, updateHash = true } = {}) {
     button.setAttribute("aria-expanded", "false");
   });
   archiveScreen.classList.remove("has-active-project");
+  archiveScreen.classList.remove("has-scatter-project");
   document.body.classList.remove("project-open");
   activeProjectId = null;
 

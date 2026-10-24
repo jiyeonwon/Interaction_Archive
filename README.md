@@ -25,8 +25,10 @@ CSS/JS/이미지와 iframe은 기존 상대 경로를 그대로 사용합니다.
 - `/Interaction_Archive/`
 - `/Interaction_Archive/#counterweight`
 - `/Interaction_Archive/#melting-ice`
+- `/Interaction_Archive/#scatter`
 - `/Interaction_Archive/counterweight.html`
 - `/Interaction_Archive/melting-ice.html`
+- `/Interaction_Archive/scatter/index.html#home`
 
 해시 기반 프로젝트 선택과 실제 `.html` 파일 접근을 사용하므로 서버 rewrite나 SPA 404 우회가 필요하지 않습니다. 각 URL 직접 열기와 새로고침, 두 프로젝트 선택, Back/Archive, 얼음 터치/드래그/길게 누르기와 Counterweight 인터랙션을 확인하세요.
 
