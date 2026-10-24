@@ -20,7 +20,7 @@ const projects = {
   },
   scatter: {
     title: "SCATTER!",
-    src: "./scatter/index.html?v=3#home"
+    src: "./scatter/index.html?v=4#home"
   }
 };
 
