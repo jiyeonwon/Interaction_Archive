@@ -80,5 +80,10 @@ dialog .connection-trigger{display:inline-grid;grid-template-columns:1fr;max-wid
 html{min-height:100%;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--lime);overscroll-behavior-y:none}
 body{min-height:100vh;min-height:100dvh;overflow-x:hidden;overflow-y:visible;overscroll-behavior-y:none}
 .saved-memos,.saved-memos summary,.saved-memos .memo-choices,.saved-memos .memo-choice{touch-action:pan-y}
+
+@media (min-width:701px) and (max-width:1366px) and (pointer:coarse) {
+  .memo-panel{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;overscroll-behavior:contain}
+  .memo-list{touch-action:pan-y}
+}
 .mobile-title-break{display:none}
 @media(max-width:700px){.mobile-title-break{display:inline}}
