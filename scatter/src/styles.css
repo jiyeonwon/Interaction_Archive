@@ -47,7 +47,7 @@ dialog .connection-trigger{display:inline-grid;grid-template-columns:1fr;max-wid
 .home-read{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start}
 
 @media(min-width:701px){
-  .memo-panel{overflow:hidden}
+  .memo-panel{overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
   .memo-list{gap:calc(10 * var(--unit));margin-top:calc(16 * var(--unit))}
   .memo-card{min-height:calc(78 * var(--unit));padding:calc(10 * var(--unit)) calc(16 * var(--unit))}
   .memo-card .remove{top:calc(9 * var(--unit));right:calc(11 * var(--unit))}
