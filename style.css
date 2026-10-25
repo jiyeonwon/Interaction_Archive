@@ -201,7 +201,7 @@ body {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   transform: none;
-  background: #fff;
+  background: #d9ff5c;
 }
 
 @media (min-width: 1000px) {
