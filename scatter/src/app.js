@@ -20,7 +20,7 @@ $('.modal-close').onclick=close;modal.addEventListener('close',()=>physics?.clea
 function confirmAction(message,action){open(`<h2>확인해주세요</h2><p>${esc(message)}</p><div class="dialog-actions"><button class="button outline" data-cancel>취소</button><button class="button primary" data-confirm>확인</button></div>`);$('[data-cancel]',body).onclick=close;$('[data-confirm]',body).onclick=()=>{close();action();};}
 function go(p){if(location.hash===`#${p}`)render();else location.hash=p;}
 function getWords(){const found=state.memos.filter(m=>state.active.includes(m.id)).flatMap(m=>extractKeywords(m));return found.filter(word=>recommendConnections(word,found,state.memos).length);}
-function updateScale(){document.documentElement.style.setProperty('--scale',innerWidth<=700?'.75':String(Math.min(1,innerWidth/1540)));}
+function updateScale(){document.documentElement.style.setProperty('--scale',innerWidth<=700?'.75':String(Math.min(1,innerWidth/1920)));}
 updateScale();addEventListener('resize',updateScale);
 function render(){dismissConnections();connectionWordId=null;physics?.destroy();physics=null;const route=location.hash.slice(1);page=route==='collect'?'home':['home','scatter','archive'].includes(route)?route:'home';document.querySelectorAll('nav a').forEach(a=>a.setAttribute('aria-current',a.hash===`#${page}`?'page':'false'));if(page==='home')collect();if(page==='scatter')scatter();if(page==='archive')archive();}
 function choices(selected=state.active){return state.memos.map(m=>`<label class="memo-choice"><input type="checkbox" value="${m.id}" ${selected.includes(m.id)?'checked':''}><span>${esc(title(m))}<small>${esc(m.text.slice(0,100))}</small><small>${date(m.createdAt)}</small></span></label>`).join('');}

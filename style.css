@@ -188,16 +188,7 @@ body {
 
 .archive-screen.has-scatter-project .archive-stage {
   display: block;
-  width: 100vw;
   padding: 0;
-}
-
-.archive-screen.has-scatter-project {
-  grid-template-columns: 1fr;
-}
-
-.archive-screen.has-scatter-project .archive-panel {
-  display: none;
 }
 
 .archive-screen.has-scatter-project .project-frame {
@@ -295,12 +286,4 @@ body {
     height: 100svh;
     aspect-ratio: auto;
   }
-}
-
-/* iPad project views replace the category list and use the full screen. */
-@media (min-width: 701px) and (max-width: 1366px) {
-  .archive-screen.has-scatter-project{grid-template-columns:1fr}
-  .archive-screen.has-scatter-project .archive-panel{display:none}
-  .archive-screen.has-scatter-project .archive-stage{display:block;width:100vw;min-height:100svh;padding:0}
-  .archive-screen.has-scatter-project .project-frame{width:100%;max-width:none;height:100svh;margin:0;aspect-ratio:auto;transform:none}
 }
