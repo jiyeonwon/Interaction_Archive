@@ -10,7 +10,7 @@ export const date = value => new Intl.DateTimeFormat('ko-KR',{year:'numeric',mon
 
 export function extractKeywords(memo,limit=2){
  const tokens=tokenize(memo);
- if(memo.keywordHints?.length){const chosen=memo.keywordHints.map(h=>tokens.find(w=>w.text.startsWith(h))).filter(Boolean);if(chosen.length)return [...new Map(chosen.map(w=>[w.id,w])).values()].slice(0,limit);}
+ const hinted=memo.keywordHints?.length?memo.keywordHints.map(h=>tokens.find(w=>w.text.startsWith(h))).filter(Boolean):[];
  const unique=new Map();
  for(const word of tokenize(memo)){
   const topics=tags(word.text);if(!topics.size)continue;
@@ -18,7 +18,8 @@ export function extractKeywords(memo,limit=2){
   // Keep real token text, position, and ID; no invented display terms.
   if(!unique.has(key))unique.set(key,{...word,topics:[...topics]});
  }
- const useful=[...unique.values()];return (useful.length?useful:tokenize(memo).filter(w=>w.text.length>1).slice(0,limit)).slice(0,limit);
+ const useful=[...unique.values()],fallback=tokens.filter(w=>w.text.length>1);
+ return [...new Map([...hinted,...useful,...fallback].map(w=>[w.id,w])).values()].slice(0,limit);
 }
 export function deleteMemo(state,id){return {...state,memos:state.memos.filter(m=>m.id!==id),active:state.active.filter(x=>x!==id),sentence:state.sentence.filter(w=>w.memoId!==id),ideaDraft:null};}
 export const signature=words=>words.map(w=>w.id).join('|');
