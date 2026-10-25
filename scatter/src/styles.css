@@ -73,6 +73,7 @@ dialog .connection-trigger{display:inline-grid;grid-template-columns:1fr;max-wid
 @media (min-width:701px) and (max-width:900px) {
   .archive-grid,.archive-grid.with-records{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+.collage{width:100%;align-self:stretch}
 .word{transition:background .15s,box-shadow .15s,transform .45s var(--ease),opacity .35s var(--ease)}
 .word.scatter-enter{transform:rotate(var(--angle,0deg)) scale(.82)}
 .mobile-title-break{display:none}
