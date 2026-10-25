@@ -259,15 +259,20 @@ body {
   }
 
   body.project-open {
-    overflow-y: auto;
+    overflow: hidden;
   }
 
   .archive-screen.has-active-project {
-    grid-template-rows: 100svh 100svh;
+    grid-template-rows: 100svh;
+  }
+
+  .archive-screen.has-active-project .archive-panel {
+    display: none;
   }
 
   .archive-screen.has-active-project .archive-stage {
     display: grid;
+    width: 100vw;
     min-height: 100svh;
   }
 

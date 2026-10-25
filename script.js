@@ -20,7 +20,7 @@ const projects = {
   },
   scatter: {
     title: "SCATTER!",
-    src: "./scatter/index.html?v=5#home"
+    src: "./scatter/index.html?v=6#home"
   }
 };
 
@@ -53,7 +53,7 @@ function openProject(projectId, { updateHash = true } = {}) {
   activeProjectId = projectId;
 
   if (updateHash && window.location.hash !== `#${projectId}`) {
-    history.replaceState(null, "", `#${projectId}`);
+    history.pushState(null, "", `#${projectId}`);
   }
 }
 
