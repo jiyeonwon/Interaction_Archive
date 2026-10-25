@@ -1,5 +1,5 @@
 import {load,persist,uid,tokenize,date,extractKeywords,deleteMemo,signature,createArchive} from './storage.js';
-import {WordPhysics} from './physics.js';
+import {WordPhysics} from './physics.js?v=11';
 import {recommendConnections} from './connections.js';
 import {generateIdea,findIdeaBundles} from './ideas.js';
 const app=document.querySelector('#app'),modal=document.querySelector('#modal'),body=document.querySelector('#modal-body');
