@@ -198,6 +198,8 @@ body {
   height: 100svh;
   margin: 0;
   aspect-ratio: auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   transform: none;
   background: #fff;
 }
