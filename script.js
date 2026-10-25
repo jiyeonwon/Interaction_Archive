@@ -20,11 +20,45 @@ const projects = {
   },
   scatter: {
     title: "SCATTER!",
-    src: "./scatter/index.html?v=16#home"
+    src: "./scatter/index.html?v=17#home"
   }
 };
 
 let activeProjectId = null;
+let scatterResizeObserver = null;
+let scatterResizeFrame = 0;
+
+function usesTabletScatterLayout() {
+  return activeProjectId === "scatter" && navigator.maxTouchPoints > 0 &&
+    window.matchMedia("(min-width: 701px) and (max-width: 1366px)").matches;
+}
+
+function syncScatterFrameHeight() {
+  cancelAnimationFrame(scatterResizeFrame);
+  scatterResizeFrame = requestAnimationFrame(() => {
+    if (!usesTabletScatterLayout()) {
+      projectFrame.style.removeProperty("height");
+      return;
+    }
+    const doc = projectFrame.contentDocument;
+    if (!doc) return;
+    const appBottom = doc.querySelector("#app")?.getBoundingClientRect().bottom || 0;
+    const height = Math.max(window.innerHeight, Math.ceil(appBottom));
+    projectFrame.style.height = `${height}px`;
+  });
+}
+
+function observeScatterHeight() {
+  scatterResizeObserver?.disconnect();
+  scatterResizeObserver = null;
+  if (!usesTabletScatterLayout()) return;
+  const doc = projectFrame.contentDocument;
+  if (!doc) return;
+  scatterResizeObserver = new ResizeObserver(syncScatterFrameHeight);
+  scatterResizeObserver.observe(doc.documentElement);
+  if (doc.body) scatterResizeObserver.observe(doc.body);
+  syncScatterFrameHeight();
+}
 
 function openProject(projectId, { updateHash = true } = {}) {
   const project = projects[projectId];
@@ -51,6 +85,7 @@ function openProject(projectId, { updateHash = true } = {}) {
   archiveScreen.classList.toggle("has-scatter-project", projectId === "scatter");
   document.body.classList.add("project-open");
   activeProjectId = projectId;
+  if (projectId === "scatter") setTimeout(observeScatterHeight, 0);
 
   if (updateHash && window.location.hash !== `#${projectId}`) {
     history.pushState(null, "", `#${projectId}`);
@@ -70,6 +105,9 @@ function closeProject({ focusTarget, updateHash = true } = {}) {
   archiveScreen.classList.remove("has-scatter-project");
   document.body.classList.remove("project-open");
   activeProjectId = null;
+  scatterResizeObserver?.disconnect();
+  scatterResizeObserver = null;
+  projectFrame.style.removeProperty("height");
 
   if (updateHash && window.location.hash) {
     history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
@@ -81,6 +119,14 @@ function closeProject({ focusTarget, updateHash = true } = {}) {
 
 projectButtons.forEach((button) => {
   button.addEventListener("click", () => openProject(button.dataset.project));
+});
+
+projectFrame.addEventListener("load", observeScatterHeight);
+window.addEventListener("resize", syncScatterFrameHeight);
+window.addEventListener("message", (event) => {
+  if (event.origin === window.location.origin && event.data?.type === "scatter-layout") {
+    syncScatterFrameHeight();
+  }
 });
 
 archiveHome.addEventListener("click", () => closeProject({ focusTarget: archiveHome }));

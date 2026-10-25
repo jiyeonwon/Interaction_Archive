@@ -289,3 +289,33 @@ body {
     aspect-ratio: auto;
   }
 }
+
+/* iPad Safari: expand SCATTER to its content and let the archive page own scrolling. */
+@media (min-width: 701px) and (max-width: 1366px) and (pointer: coarse) {
+  body.project-open:has(.archive-screen.has-scatter-project) {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .archive-screen.has-scatter-project {
+    align-items: start;
+    min-height: 100svh;
+  }
+
+  .archive-screen.has-scatter-project .archive-panel {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+  }
+
+  .archive-screen.has-scatter-project .archive-stage {
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .archive-screen.has-scatter-project .project-frame {
+    min-height: 100svh;
+    overflow: hidden;
+  }
+}
